@@ -25,20 +25,31 @@ class Map:
 
 class Fighter:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 20.0  # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+    FLY_SPEED_KMPH = 20.0  # Km / Hour
+    FLY_SPEED_MPM = (FLY_SPEED_KMPH * 1000.0 / 60.0)
+    FLY_SPEED_MPS = (FLY_SPEED_MPM / 60.0)
+    FLY_SPEED_PPS = (FLY_SPEED_MPS * PIXEL_PER_METER)
     global left_pressed, right_pressed
     def __init__(self):
         self.image = load_image('fighter.png')
         self.x, self.y = 400, 40
+        self.life_time = 0.0
+        self.dir = 0
+ 
+    def update(self, frame_time):
+        def clamp(minimum, x, maximum):
+            return max(minimum, min(x, maximum))
 
-    def update(self):
+        self.life_time += frame_time
+        distance = Fighter.FLY_SPEED_PPS * frame_time
+        self.x += (self.dir * distance)
+
+        self.x = clamp(0,self.x, 800)
+
         if(left_pressed):
-            self.x = max(0, self.x - 2)
+            self.x += (self.dir * distance)
         elif(right_pressed):
-            self.x = min(800, self.x + 2)
+            self.x -= (self.dir * distance)
 
         pass
 
