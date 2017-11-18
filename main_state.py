@@ -47,6 +47,7 @@ class Fighter:
         self.x = clamp(0,self.x, 800)
 
         if(left_pressed):
+            #start
             self.x += (self.dir * distance)
         elif(right_pressed):
             self.x -= (self.dir * distance)
