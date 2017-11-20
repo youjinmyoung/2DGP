@@ -24,6 +24,8 @@ class Map:
 
 
 class Fighter:
+    #fill here
+    
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
     FLY_SPEED_KMPH = 20.0  # Km / Hour
     FLY_SPEED_MPM = (FLY_SPEED_KMPH * 1000.0 / 60.0)
