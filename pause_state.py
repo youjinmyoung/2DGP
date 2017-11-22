@@ -6,23 +6,18 @@ import main_state
 name = 'PauseState'
 image = None
 count = 0
-
-
 def enter():
     global image
     image = load_image('pause.png')
-
 
 def exit():
     global image
     del(image)
 
-
 def update():
     global count
     count = (count +1) % 200
     pass
-
 
 def draw():
     clear_canvas()
@@ -42,8 +37,6 @@ def handle_events():
             game_framework.pop_state()
     pass
 
-
 def pause(): pass
-
 
 def resume(): pass

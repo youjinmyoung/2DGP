@@ -1,68 +1,41 @@
-import random
-import json
-import os
-
 from pico2d import *
 
 import game_framework
-import title_state
-import pause_state
+
+from map import Map
+from fighter import Fighter
 
 name = "MainState"
 
-fighter = None
 map = None
-left_pressed = False
-right_pressed = False
-
-class Map:
-    def __init__(self):
-        self.image = load_image('map.png')
-
-    def draw(self):
-        self.image.draw(400,300)
+fighter = None
 
 
-class Fighter:
-    PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-    FLY_SPEED_KMPH = 20.0  # Km / Hour
-    FLY_SPEED_MPM = (FLY_SPEED_KMPH * 1000.0 / 60.0)
-    FLY_SPEED_MPS = (FLY_SPEED_MPM / 60.0)
-    FLY_SPEED_PPS = (FLY_SPEED_MPS * PIXEL_PER_METER)
+def create_world():
+    global map, fighter
+    map = Map()
+    fighter = Fighter()
 
-    global left_pressed, right_pressed
-    image = None
-    def __init__(self):
-        self.x, self.y = 400, 40
-        self.life_time = 0.0
-        self.dir = 0
-        if Fighter.image == None:
-            Fighter.image = load_image('fighter.png')
- 
-    def update(self, frame_time):
+    pass
 
-        self.life_time += frame_time
-        distance = Fighter.FLY_SPEED_PPS * frame_time
-        self.x += (self.dir * distance)
-        if(left_pressed):
-            self.x += (self.dir * distance)
-        elif(right_pressed):
-            self.x -= (self.dir * distance)
 
-    def draw(self):
-        self.image.draw(self.x, self.y)
+def destroy_world():
+    global map, fighter
+
+    del(map)
+    del(fighter)
 
 
 def enter():
-    global fighter, map
-    fighter = Fighter()
-    map = Map()
+    open_canvas()
+    game_framework.reset_time()
+    create_world()
 
 
 def exit():
-    global fighter, map
-    del(fighter)
-    del(map)
+    destroy_world()
+    close_canvas()
+
 
 def pause():
     pass
@@ -72,37 +45,52 @@ def resume():
     pass
 
 
-def handle_events():
-    global left_pressed, right_pressed
+def handle_events(frame_time):
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_state(title_state)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
-            # p key go to pause_state
-            game_framework.push_state(pause_state)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_LEFT:
-            left_pressed = True
-        elif event.type == SDL_KEYUP and event.key == SDLK_LEFT:
-            left_pressed = False
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_RIGHT:
-            right_pressed = True
-        elif event.type == SDL_KEYUP and event.key == SDLK_RIGHT:
-            right_pressed = False
+        else:
+            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
+                game_framework.quit()
+            else:
+                fighter.handle_event(event)
+
+
+
+
+def collide(a, b):
+    # fill here
+    global check
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+
+    return True
+    pass
+
+def update(frame_time):
+    fighter.update(frame_time)
     pass
 
 
-def update():
-    fighter.update()
 
-def draw_state():
+def draw(frame_time):
+    clear_canvas()
     map.draw()
     fighter.draw()
 
+    pass
 
-def draw():
-    clear_canvas()
-    draw_state()
     update_canvas()
+
+
+
+
+
+

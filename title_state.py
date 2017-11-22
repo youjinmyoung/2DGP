@@ -9,7 +9,7 @@ image = None
 
 def enter():
     global image
-    image = load_image('title1.png')
+    image = load_image('title.png')
 
 
 def exit():
@@ -38,9 +38,6 @@ def draw():
 
 
 
-
-
-
 def update():
     pass
 
@@ -51,9 +48,3 @@ def pause():
 
 def resume():
     pass
-
-
-
-
-
-
