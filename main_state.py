@@ -1,40 +1,49 @@
 from pico2d import *
 
 import game_framework
+import title_state
+import pause_state
+
 
 from map import Map
 from fighter import Fighter
+from enemy import Enemy
+from missile import Missile
 
 name = "MainState"
 
 map = None
 fighter = None
-
+enemy = None
+missile = None
+enemys = None
 
 def create_world():
-    global map, fighter
+    global map, fighter, enemys, missile
     map = Map()
     fighter = Fighter()
-
+    enemys = [Enemy() for i in range(3)]
+    missile = Missile()
     pass
 
 
 def destroy_world():
-    global map, fighter
+    global map, fighter, enemys, missile
 
     del(map)
     del(fighter)
-
+    del(enemys)
+    del(missile)
 
 def enter():
-    open_canvas()
-    game_framework.reset_time()
+    #open_canvas()
+    #game_framework.reset_time()
     create_world()
 
 
 def exit():
     destroy_world()
-    close_canvas()
+    #close_canvas()
 
 
 def pause():
@@ -46,15 +55,19 @@ def resume():
 
 
 def handle_events(frame_time):
+    global missile
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            game_framework.change_state(title_state)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
+            game_framework.push_state(pause_state)
         else:
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                game_framework.quit()
-            else:
-                fighter.handle_event(event)
+            fighter.handle_event(event)
+            missile.handle_event(event)
+
 
 
 
@@ -76,6 +89,12 @@ def collide(a, b):
 
 def update(frame_time):
     fighter.update(frame_time)
+    for enemy in enemys:
+        enemy.update(frame_time)
+    missile.update(frame_time, fighter.x)
+
+    #if collide(enemy, missile):
+      #  enemy.remove(enemy)
     pass
 
 
@@ -84,7 +103,14 @@ def draw(frame_time):
     clear_canvas()
     map.draw()
     fighter.draw()
+    missile.draw()
+    for enemy in enemys:
+        enemy.draw()
 
+    fighter.draw_bb()
+    missile.draw_bb()
+    for enemy in enemys:
+        enemy.draw_bb()
     pass
 
     update_canvas()

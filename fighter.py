@@ -15,6 +15,7 @@ class Fighter:
         self.x, self.y = 400, 30
         self.dir = 0
         self.state = self.STOP
+        self.launch = False
         if Fighter.image == None:
             Fighter.image = load_image('fighter.png')
 
@@ -35,7 +36,7 @@ class Fighter:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 20, self.y - 50, self.x + 20, self.y + 50
+        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
         pass
 
     def handle_event(self, event):
@@ -55,3 +56,7 @@ class Fighter:
             if self.state in (self.RIGHT_FLY,):
                 self.state = self.STOP
                 self.dir = 0
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
+            self.launch = True
+        elif (event.type, event.key) == (SDL_KEYUP, SDLK_SPACE):
+            self.launch = False
