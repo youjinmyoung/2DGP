@@ -8,26 +8,26 @@ image = None
 count = 0
 def enter():
     global image
-    image = load_image('pause.png')
+    image = load_image('resource/pause.png')
 
 def exit():
     global image
     del(image)
 
-def update():
+def update(frame_time):
     global count
-    count = (count +1) % 200
+    count = (count +1) % 100
     pass
 
-def draw():
+def draw(frame_time):
     clear_canvas()
-    main_state.draw_state()
-    if count < 100:
+    main_state.draw(frame_time)
+    if count < 10:
         image.draw(400,500)
     update_canvas()
     pass
 
-def handle_events():
+def handle_events(frame_time):
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
