@@ -18,7 +18,7 @@ class Fighter:
         self.state = self.STOP
         self.launch = False
         if Fighter.image == None:
-            Fighter.image = load_image('resource/fighter.png')
+            Fighter.image = load_image('resource/fighter/fighter.png')
 
 
     def update(self, frame_time):

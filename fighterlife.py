@@ -1,6 +1,6 @@
 from pico2d import*
 
-class Fighter_life:
+class FighterLife:
     image = None
 
     def __init__(self):
@@ -9,7 +9,7 @@ class Fighter_life:
         self.life = 0
 
         if self.image == None:
-            self.image = load_image('resource/life.png')
+            self.image = load_image('resource/fighter/life.png')
 
     def update(self,frame_time):
         pass

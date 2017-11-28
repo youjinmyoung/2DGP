@@ -1,7 +1,7 @@
 from pico2d import *
 import random
 
-class Enemy2:
+class BlueEnemy:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
     RUN_SPEED_KMPH = 5.0  # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -10,7 +10,7 @@ class Enemy2:
 
     TIME_PER_ACTION = 1
     ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 2
+    FRAMES_PER_ACTION = 1
 
     image = None
     dead_image = None
@@ -25,14 +25,14 @@ class Enemy2:
         self.state = 0
         self.dead = False
 
-        self.image = load_image('resource/enemy2.png')
-        self.dead_image = load_image('resource/enemy_D.png')
+        self.image = load_image('resource/enemy/blue_enemy.png')
+        self.dead_image = load_image('resource/enemy/enemy_explosion.png')
 
 
     def update(self, frame_time):
-        self.total_frames += Enemy2.FRAMES_PER_ACTION * Enemy2.ACTION_PER_TIME * frame_time
+        self.total_frames += BlueEnemy.FRAMES_PER_ACTION * BlueEnemy.ACTION_PER_TIME * frame_time
         self.frame = int(self.total_frames) % 2
-        self.dead_frame = int(self.total_frames + 1) % 4
+        self.dead_frame =int(self.total_frames + 1) % 4
 
     def dead(self):
         self.dead = True
@@ -40,6 +40,7 @@ class Enemy2:
     def stop(self):
         self.dead = True
 
+        pass
     def draw(self):
         if self.dead == False:
             self.image.clip_draw(self.frame * 80, 0, 80, 80, self.x, self.y)
@@ -50,10 +51,9 @@ class Enemy2:
                 self.dead = False
                 self.x, self.y = -100, -100
 
+
     def get_bb(self):
-        return self.x - 25, self.y - 15, self.x + 20, self.y + 25
+        return self.x - 25, self.y - 15, self.x + 25, self.y + 25
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
-
-

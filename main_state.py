@@ -7,13 +7,13 @@ import pause_state
 
 from map import Map
 from fighter import Fighter
-from enemy1 import Enemy1
-from enemy2 import Enemy2
-from enemy3 import Enemy3
-from missile import P_Missile, E_missile
+from greenenemy import GreenEnemy
+from redenemy import RedEnemy
+from blueenemy import BlueEnemy
+from missile import FighterMissile, EnemyMissile
 from score import Score
 from score2 import Score2
-from fighter_life import Fighter_life
+from fighterlife import FighterLife
 name = "MainState"
 
 map = None
@@ -48,7 +48,7 @@ enemies3_data_file.close()
 def create_enemy1():
     enemies1 = []
     for name in enemies1_data:
-        enemy1 = Enemy1()
+        enemy1 = GreenEnemy()
         enemy1.name = name
         enemy1.x = enemies1_data[name]['x']
         enemy1.y = enemies1_data[name]['y']
@@ -58,7 +58,7 @@ def create_enemy1():
 def create_enemy2():
     enemies2 = []
     for name in enemies2_data:
-        enemy2 = Enemy2()
+        enemy2 = RedEnemy()
         enemy2.name = name
         enemy2.x = enemies2_data[name]['x']
         enemy2.y = enemies2_data[name]['y']
@@ -68,7 +68,7 @@ def create_enemy2():
 def create_enemy3():
     enemies3 = []
     for name in enemies3_data:
-        enemy3 = Enemy3()
+        enemy3 = BlueEnemy()
         enemy3.name = name
         enemy3.x = enemies3_data[name]['x']
         enemy3.y = enemies3_data[name]['y']
@@ -82,14 +82,14 @@ def create_world():
 
     draw_score = Score()
     score2 = Score2()
-    fighter_life = Fighter_life()
+    fighter_life = FighterLife()
 
     fighter = Fighter()
     enemies1 = create_enemy1()
     enemies2 = create_enemy2()
     enemies3 = create_enemy3()
-    p_missile = P_Missile()
-    e_missile = [E_missile() for i in range(4)]
+    p_missile = FighterMissile()
+    e_missile = [EnemyMissile() for i in range(4)]
     pass
 
 

@@ -2,7 +2,7 @@ from pico2d import *
 import random
 
 
-class Enemy1:
+class GreenEnemy:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
     RUN_SPEED_KMPH = 5.0  # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -26,12 +26,12 @@ class Enemy1:
         self.state = 0
         self.dead = False
 
-        self.image = load_image('resource/enemy1(160x80).png')
-        self.dead_image = load_image('resource/enemy_D.png')
+        self.image = load_image('resource/enemy/green_enemy.png')
+        self.dead_image = load_image('resource/enemy/enemy_explosion.png')
 
 
     def update(self, frame_time):
-        self.total_frames += Enemy1.FRAMES_PER_ACTION * Enemy1.ACTION_PER_TIME * frame_time
+        self.total_frames += GreenEnemy.FRAMES_PER_ACTION * GreenEnemy.ACTION_PER_TIME * frame_time
         self.frame = int(self.total_frames) % 2
         self.dead_frame = int(self.total_frames + 1) % 4
 

@@ -1,6 +1,6 @@
 from pico2d import *
 
-class P_Missile:
+class FighterMissile:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
     RUN_SPEED_KMPH = 35.0  # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -14,8 +14,8 @@ class P_Missile:
         self.dir = 1
         self.missile_on = False
         self.launch = False
-        if P_Missile.image == None:
-            P_Missile.image = load_image('resource/mis1.png')
+        if FighterMissile.image == None:
+            FighterMissile.image = load_image('resource/mis1.png')
 
     def update(self, frame_time, fighter_x):
         if self.missile_on == True:
@@ -51,7 +51,7 @@ class P_Missile:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-class E_missile:
+class EnemyMissile:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
     RUN_SPEED_KMPH = 30.0  # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -65,8 +65,8 @@ class E_missile:
         self.dir = -1
         self.missile_on = False
         self.launch = False
-        if P_Missile.image == None:
-            P_Missile.image = load_image('resource/mis1.png')
+        if FighterMissile.image == None:
+            FighterMissile.image = load_image('resource/mis1.png')
 
     def update(self, frame_time, enemy_x, enemy_y):
         if self.missile_on == True:

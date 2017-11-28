@@ -23,34 +23,34 @@ class Score:
         self.fifth = 0
 
         if self.number0_image == None:
-            self.number0_image = load_image('resource/number_folder/0.png')
+            self.number0_image = load_image('resource/number/0.png')
 
         if self.number1_image == None:
-          self.number1_image = load_image('resource/number_folder/1.png')
+          self.number1_image = load_image('resource/number/1.png')
 
         if self.number2_image == None:
-          self.number2_image = load_image('resource/number_folder/2.png')
+          self.number2_image = load_image('resource/number/2.png')
 
         if self.number3_image == None:
-          self.number3_image = load_image('resource/number_folder/3.png')
+          self.number3_image = load_image('resource/number/3.png')
 
         if self.number4_image == None:
-          self.number4_image = load_image('resource/number_folder/4.png')
+          self.number4_image = load_image('resource/number/4.png')
 
         if self.number5_image == None:
-          self.number5_image = load_image('resource/number_folder/5.png')
+          self.number5_image = load_image('resource/number/5.png')
 
         if self.number6_image == None:
-          self.number6_image = load_image('resource/number_folder/6.png')
+          self.number6_image = load_image('resource/number/6.png')
 
         if self.number7_image == None:
-          self.number7_image = load_image('resource/number_folder/7.png')
+          self.number7_image = load_image('resource/number/7.png')
 
         if self.number8_image == None:
-          self.number8_image = load_image('resource/number_folder/8.png')
+          self.number8_image = load_image('resource/number/8.png')
 
         if self.number9_image == None:
-          self.number9_image = load_image('resource/number_folder/9.png')
+          self.number9_image = load_image('resource/number/9.png')
 
 
     def update(self, frame_time, input_score):
