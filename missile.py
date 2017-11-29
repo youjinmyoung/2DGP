@@ -12,18 +12,18 @@ class FighterMissile:
     def __init__(self):
         self.x, self.y = -30, -30
         self.dir = 1
-        self.missile_on = False
+        self.missile_ready = False
         self.launch = False
         if FighterMissile.image == None:
             FighterMissile.image = load_image('resource/mis1.png')
 
     def update(self, frame_time, fighter_x):
-        if self.missile_on == True:
+        if self.missile_ready == True:
             if self.launch == True:
                 self.x = fighter_x
                 self.launch = False
             if self.y >= 650:
-                self.missile_on = False
+                self.missile_ready = False
 
             distance = self.RUN_SPEED_PPS * frame_time
             self.y +=  distance
@@ -33,15 +33,15 @@ class FighterMissile:
 
     def handle_event(self, event):
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            if self.missile_on == False:
+            if (self.missile_ready == False):
                 self.y = 80
-                self.missile_on= True
+                self.missile_ready= True
                 self.launch = True
 
         pass
 
     def stop(self):
-        self.missile_on = False
+        self.missile_ready = False
         self.y = -30
         pass
 

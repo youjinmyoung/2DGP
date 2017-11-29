@@ -12,27 +12,35 @@ class BlueEnemy:
     ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 1
 
+
+    DEAD_TIME_PER_ACTION = 1
+    DEAD_ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
+    DEAD_FRAMES_PER_ACTION = 8
+
     image = None
     dead_image = None
     LEFT_FLY, RIGHT_FLY = 0, 1
 
     def __init__(self):
         self.x, self.y = 0, 0
-        self.frame = random.randint(0, 1)
+        self.frame = (0, 1)
         self.dead_frame = (0, 4)
         self.total_frames = 0.0
+        self.dead_total_frames = 0.0
         self.dir = 0
         self.state = 0
         self.dead = False
 
         self.image = load_image('resource/enemy/blue_enemy.png')
-        self.dead_image = load_image('resource/enemy/enemy_explosion.png')
+        self.dead_image = load_image('resource/enemy/dead.png')
 
 
     def update(self, frame_time):
         self.total_frames += BlueEnemy.FRAMES_PER_ACTION * BlueEnemy.ACTION_PER_TIME * frame_time
+        self.dead_total_frames +=BlueEnemy.DEAD_FRAMES_PER_ACTION * BlueEnemy.DEAD_ACTION_PER_TIME * frame_time
         self.frame = int(self.total_frames) % 2
-        self.dead_frame =int(self.total_frames + 1) % 4
+        self.dead_frame =int(self.dead_total_frames) % 4
+
 
     def dead(self):
         self.dead = True
@@ -45,9 +53,9 @@ class BlueEnemy:
         if self.dead == False:
             self.image.clip_draw(self.frame * 80, 0, 80, 80, self.x, self.y)
         elif self.dead == True:
-            self.dead_image.clip_draw(self.dead_frame * 70, 0, 60, 70, self.x,self.y)
+            self.dead_image.clip_draw(self.dead_frame * 70, 0, 60, 80, self.x,self.y)
             if self.dead_frame == 3:
-                self.frame = -1
+                self.dead_frame = -1
                 self.dead = False
                 self.x, self.y = -100, -100
 

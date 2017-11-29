@@ -10,7 +10,7 @@ class RedEnemy:
 
     TIME_PER_ACTION = 1
     ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 2
+    FRAMES_PER_ACTION = 1
 
     image = None
     dead_image = None
