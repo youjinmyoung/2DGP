@@ -5,7 +5,7 @@ class FighterLife:
 
     def __init__(self):
         # 여기서부터 내가 코딩
-        self.draw_x, self.draw_y = 50, 50
+        self.draw_x, self.draw_y = 70, 550
         self.life = 0
 
         if self.image == None:

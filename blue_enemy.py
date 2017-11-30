@@ -15,7 +15,7 @@ class BlueEnemy:
 
     DEAD_TIME_PER_ACTION = 1
     DEAD_ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
-    DEAD_FRAMES_PER_ACTION = 8
+    DEAD_FRAMES_PER_ACTION = 4
 
     image = None
     dead_image = None
@@ -23,8 +23,8 @@ class BlueEnemy:
 
     def __init__(self):
         self.x, self.y = 0, 0
-        self.frame = (0, 1)
-        self.dead_frame = (0, 4)
+        self.frame = 0
+        self.dead_frame = 0
         self.total_frames = 0.0
         self.dead_total_frames = 0.0
         self.dir = 0
@@ -38,14 +38,12 @@ class BlueEnemy:
     def update(self, frame_time):
         self.total_frames += BlueEnemy.FRAMES_PER_ACTION * BlueEnemy.ACTION_PER_TIME * frame_time
         self.dead_total_frames +=BlueEnemy.DEAD_FRAMES_PER_ACTION * BlueEnemy.DEAD_ACTION_PER_TIME * frame_time
-        self.frame = int(self.total_frames) % 2
+        self.frame = int(self.total_frames) %2
         self.dead_frame =int(self.dead_total_frames) % 4
 
 
-    def dead(self):
-        self.dead = True
 
-    def stop(self):
+    def die(self):
         self.dead = True
 
         pass

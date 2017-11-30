@@ -37,6 +37,10 @@ class FighterMissile:
                 self.y = 80
                 self.missile_ready= True
                 self.launch = True
+            elif (self.missile_ready == True):
+                self.y = 80
+                self.missile_ready = True
+                self.launch = True
 
         pass
 
@@ -65,8 +69,8 @@ class EnemyMissile:
         self.dir = -1
         self.missile_on = False
         self.launch = False
-        if FighterMissile.image == None:
-            FighterMissile.image = load_image('resource/mis1.png')
+        if EnemyMissile.image == None:
+            EnemyMissile.image = load_image('resource/enemy/enemy_missile.png')
 
     def update(self, frame_time, enemy_x, enemy_y):
         if self.missile_on == True:
