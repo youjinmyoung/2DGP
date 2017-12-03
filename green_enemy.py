@@ -22,7 +22,7 @@ class GreenEnemy:
     LEFT_FLY, RIGHT_FLY = 0, 1
 
     def __init__(self):
-        self.x, self.y = 0, 0
+        self.x, self.y = 500, 500
         self.frame = 0
         self.dead_frame = 0
         self.total_frames = 0.0

@@ -17,15 +17,16 @@ class FighterMissile:
         if FighterMissile.image == None:
             FighterMissile.image = load_image('resource/mis1.png')
 
-    def update(self, frame_time, fighter_x):
+    def update(self, frame_time, fighter_x, fighter_y):
         if self.missile_ready == True:
             if self.launch == True:
                 self.x = fighter_x
+                self.y = fighter_y + 30
                 self.launch = False
             if self.y >= 650:
                 self.missile_ready = False
 
-            distance = self.RUN_SPEED_PPS * frame_time
+            distance = self.RUN_SPEED_PPS * self.dir * frame_time
             self.y +=  distance
 
     def draw(self):
@@ -33,13 +34,8 @@ class FighterMissile:
 
     def handle_event(self, event):
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            if (self.missile_ready == False):
-                self.y = 80
+            if self.missile_ready == False:
                 self.missile_ready= True
-                self.launch = True
-            elif (self.missile_ready == True):
-                self.y = 80
-                self.missile_ready = True
                 self.launch = True
 
         pass
@@ -65,24 +61,25 @@ class EnemyMissile:
     image = None
 
     def __init__(self):
-        self.x, self.y = -30, -30
+        self.x, self.y = 100, 500
         self.dir = -1
         self.missile_on = False
         self.launch = False
+        self.launch_time = 0
         if EnemyMissile.image == None:
             EnemyMissile.image = load_image('resource/enemy/enemy_missile.png')
 
+
     def update(self, frame_time, enemy_x, enemy_y):
-        if self.missile_on == True:
+        if self. missile_on == True:
             if self.launch == True:
                 self.x = enemy_x
                 self.y = enemy_y
                 self.launch = False
-            if self.y <= -50:
+            if self.y <= 100:
                 self.missile_on = False
-
-            distance = self.RUN_SPEED_PPS * frame_time
-            self.y -= distance
+            distance = self.RUN_SPEED_PPS * self.dir * frame_time
+            self.y += distance
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -92,7 +89,7 @@ class EnemyMissile:
 
     def stop(self):
         self.missile_on = False
-        self.y = -30
+        self.y = 100
         pass
 
     def get_bb(self):
