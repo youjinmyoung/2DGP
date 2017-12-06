@@ -2,19 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="097e1359-3855-475c-b396-17e1d27c0d17" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/2차발표.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/enemy1.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/enemy2.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/enemy3.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/score" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/score2.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/score.py" afterPath="$PROJECT_DIR$/scorenumber.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/enemy/enemy_missile.png" afterPath="$PROJECT_DIR$/resource/enemy/enemy_missile.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blue_enemy.py" afterPath="$PROJECT_DIR$/blue_enemy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blue_enemy.txt" afterPath="$PROJECT_DIR$/blue_enemy.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fighter.py" afterPath="$PROJECT_DIR$/fighter.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fighterlife.py" afterPath="$PROJECT_DIR$/fighterlife.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game_framework.py" afterPath="$PROJECT_DIR$/game_framework.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/green_enemy.py" afterPath="$PROJECT_DIR$/green_enemy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/green_enemy.txt" afterPath="$PROJECT_DIR$/green_enemy.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main_state.py" afterPath="$PROJECT_DIR$/main_state.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map.py" afterPath="$PROJECT_DIR$/map.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/missile.py" afterPath="$PROJECT_DIR$/missile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mygame.py" afterPath="$PROJECT_DIR$/mygame.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pause_state.py" afterPath="$PROJECT_DIR$/pause_state.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/red_enemy.py" afterPath="$PROJECT_DIR$/red_enemy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/red_enemy.txt" afterPath="$PROJECT_DIR$/red_enemy.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/score.py" afterPath="$PROJECT_DIR$/score.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scorenumber.py" afterPath="$PROJECT_DIR$/scorenumber.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/start_state.py" afterPath="$PROJECT_DIR$/start_state.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/title_state.py" afterPath="$PROJECT_DIR$/title_state.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,11 +35,9 @@
       <file leaf-file-name="main_state.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="29" column="12" lean-forward="false" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="161">
+              <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,8 +86,20 @@
         <entry file="file://$PROJECT_DIR$/missile.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1633">
-              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-              <folding />
+              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+              <folding>
+                <marker date="1512437759609" expanded="true" signature="1252:1265" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="1252:1506" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="1286:1355" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="1378:1443" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="1467:1506" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="1812:2076" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="2130:2472" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="2167:2472" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="2203:2305" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="2493:2533" ph="..." />
+                <marker date="1512437759609" expanded="true" signature="2569:2582" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,8 +164,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="848" />
-    <option name="y" value="7" />
+    <option name="x" value="542" />
+    <option name="y" value="2" />
     <option name="width" value="1066" />
     <option name="height" value="1042" />
   </component>
@@ -171,7 +187,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -184,6 +199,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -266,8 +282,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="848" y="7" width="1066" height="1042" extended-state="0" />
-    <editor active="true" />
+    <frame x="542" y="2" width="1066" height="1042" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24332061" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -429,8 +444,20 @@
     <entry file="file://$PROJECT_DIR$/missile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1633">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding />
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding>
+            <marker date="1512437759609" expanded="true" signature="1252:1265" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="1252:1506" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="1286:1355" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="1378:1443" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="1467:1506" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="1812:2076" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="2130:2472" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="2167:2472" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="2203:2305" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="2493:2533" ph="..." />
+            <marker date="1512437759609" expanded="true" signature="2569:2582" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -468,11 +495,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="29" column="12" lean-forward="false" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="161">
+          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>

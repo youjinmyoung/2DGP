@@ -8,8 +8,8 @@ import pause_state
 from map import Map
 from fighter import Fighter
 from green_enemy import GreenEnemy
-from red_enemy import RedEnemy
-from blue_enemy import BlueEnemy
+#from red_enemy import RedEnemy
+#from blue_enemy import BlueEnemy
 from missile import FighterMissile, EnemyMissile
 from scorenumber import ScoreNumber
 from score import Score
