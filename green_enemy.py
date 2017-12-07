@@ -27,7 +27,7 @@ class GreenEnemy:
         self.dead_frame = 0
         self.total_frames = 0.0
         self.dead_total_frames = 0.0
-        self.dir = 0
+        self.dir = 1
         self.state = 0
         self.dead = False
 
@@ -40,6 +40,10 @@ class GreenEnemy:
         self.dead_total_frames += GreenEnemy.DEAD_FRAMES_PER_ACTION * GreenEnemy.DEAD_ACTION_PER_TIME * frame_time
         self.frame = int(self.total_frames) % 2
         self.dead_frame = int(self.dead_total_frames) % 4
+        distance = self.RUN_SPEED_PPS * self.dir * frame_time
+        self.x += distance
+        if self.x >= 750:
+            self.dir = -1
 
     def die(self):
         self.dead = True
