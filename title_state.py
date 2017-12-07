@@ -5,14 +5,17 @@ from pico2d import *
 
 name = "TitleState"
 image = None
+sound = None
 
 
 def enter():
-    global image
+    global image, sound
     open_canvas()
     game_framework.reset_time()
     image = load_image('resource/title.png')
-
+    sound = load_music('sounds/002 Game Start Music.mp3')
+    sound.set_volume(32)
+    sound.play()
 
 def exit():
     global image

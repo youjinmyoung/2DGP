@@ -8,8 +8,13 @@ class Fighter:
     RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
     RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-    image = None
+    DEATH_TIME_PER_ACTION = 1
+    DEATH_ACTION_PER_TIME = 1.0 / DEATH_TIME_PER_ACTION
+    DEATH_FRAMES_PER_ACTION = 2
 
+    image = None
+    death_image = None
+    death_sound = None
     LEFT_FLY, RIGHT_FLY, STOP = 0, 1 ,2
 
     def __init__(self):
@@ -17,13 +22,21 @@ class Fighter:
         self.dir = 0
         self.state = self.STOP
         self.launch = False
-        if Fighter.image == None:
-            Fighter.image = load_image('resource/fighter/fighter.png')
-
+        self.death = False
+        self.death_frame = 0.0
+        self.death_total_frame = 0.0
+        Fighter.image = load_image('resource/fighter/fighter.png')
+        Fighter.death_image = load_image('resource/fighter/fighter_D.png')
+        if self.death_sound == None:
+            Fighter.death_sound = load_wav('wav_sounds/explosion.wav')
+            Fighter.death_sound.set_volume(32)
 
     def update(self, frame_time):
         def clamp(minimum, x, maximum):
             return max(minimum, min(x, maximum))
+
+        self.death_total_frame = Fighter.DEATH_FRAMES_PER_ACTION * Fighter.DEATH_ACTION_PER_TIME * frame_time
+        self.death_frame = int(self.death_total_frame)
 
         distance = Fighter.RUN_SPEED_PPS * frame_time
         self.x += (self.dir * distance)
@@ -32,7 +45,15 @@ class Fighter:
 
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        if self.death == False:
+            self.image.draw(self.x, self.y)
+        elif self.death == True:
+            self.death_image.clip_draw(self.death_frame * 100, 0, 100, 100, self.x, self.y)
+
+
+    def die(self):
+        self.death = True
+        self.death_sound.play()
 
     def draw_bb(self):
         draw_rectangle(*self.get_bb())

@@ -194,8 +194,6 @@ def update(frame_time):
     #for green_enemy in green_enemies:
     if collide(green_enemy, fighter_missile):
         fighter_missile.stop()
-        green_enemy.missile_on = False
-        green_enemy.launch = False
         green_enemy.die()
         score_number = score_number + 800
     #for red_enemy in red_enemies:
@@ -208,6 +206,10 @@ def update(frame_time):
       #      p_missile.stop()
        #     blue_enemy.die()
         #    score = score + 300
+    if collide(fighter, enemy_missile):
+        enemy_missile.stop()
+        fighter.die()
+
     pass
 
 

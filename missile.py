@@ -8,6 +8,7 @@ class FighterMissile:
     RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
     image = None
+    missile_sound = None
 
     def __init__(self):
         self.x, self.y = -30, -30
@@ -16,12 +17,16 @@ class FighterMissile:
         self.launch = False
         if FighterMissile.image == None:
             FighterMissile.image = load_image('resource/mis1.png')
+        if FighterMissile.missile_sound == None:
+            FighterMissile.missile_sound = load_music('sounds/shot.mp3')
+            FighterMissile.missile_sound.set_volume(32)
 
     def update(self, frame_time, fighter_x, fighter_y):
         if self.missile_ready == True:
             if self.launch == True:
                 self.x = fighter_x
                 self.y = fighter_y + 30
+                self.missile_sound.play()
                 self.launch = False
             if self.y >= 650:
                 self.missile_ready = False
@@ -63,7 +68,7 @@ class EnemyMissile:
     def __init__(self):
         self.x, self.y = 100, 500
         self.dir = -1
-        self.missile_on = False
+        self.missile_ready = False
         self.launch = False
         self.launch_time = 0
         if EnemyMissile.image == None:
@@ -71,13 +76,20 @@ class EnemyMissile:
 
 
     def update(self, frame_time, enemy_x, enemy_y):
-        if self. missile_on == True:
+        self.launch_time += frame_time * 10
+        print(self.launch_time)
+        if self. missile_ready == True:
             if self.launch == True:
                 self.x = enemy_x
-                self.y = enemy_y
+                self.y = enemy_y - 30
                 self.launch = False
-            if self.y <= 100:
-                self.missile_on = False
+            if self.y <= 0:
+                self.missile_ready = False
+        if self.launch_time >= 20:
+            if self.missile_ready == False:
+                self.missile_ready = True
+                self.launch = True
+
             distance = self.RUN_SPEED_PPS * self.dir * frame_time
             self.y += distance
 
@@ -88,8 +100,8 @@ class EnemyMissile:
         pass
 
     def stop(self):
-        self.missile_on = False
-        self.y = 100
+        self.missile_ready = False
+        self.y = -30
         pass
 
     def get_bb(self):
