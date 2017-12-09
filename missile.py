@@ -77,7 +77,7 @@ class EnemyMissile:
 
     def update(self, frame_time, enemy_x, enemy_y):
         self.launch_time += frame_time * 10
-        print(self.launch_time)
+
         if self. missile_ready == True:
             if self.launch == True:
                 self.x = enemy_x

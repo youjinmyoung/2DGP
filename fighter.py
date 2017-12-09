@@ -35,12 +35,12 @@ class Fighter:
         def clamp(minimum, x, maximum):
             return max(minimum, min(x, maximum))
 
-        self.death_total_frame = Fighter.DEATH_FRAMES_PER_ACTION * Fighter.DEATH_ACTION_PER_TIME * frame_time
-        self.death_frame = int(self.death_total_frame)
+        self.death_total_frame += Fighter.DEATH_FRAMES_PER_ACTION * Fighter.DEATH_ACTION_PER_TIME * frame_time
+        self.death_frame = int(self.death_total_frame) % 4
 
         distance = Fighter.RUN_SPEED_PPS * frame_time
         self.x += (self.dir * distance)
-        self.x = clamp(0, self.x, 800)
+        self.x = clamp(50, self.x, 750)
 
 
 
@@ -49,6 +49,10 @@ class Fighter:
             self.image.draw(self.x, self.y)
         elif self.death == True:
             self.death_image.clip_draw(self.death_frame * 100, 0, 100, 100, self.x, self.y)
+            if self.death_frame == 3:
+                self.death = False
+                self.x = 400
+                self.y = 50
 
 
     def die(self):

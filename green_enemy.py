@@ -18,12 +18,13 @@ class GreenEnemy:
     DEAD_FRAMES_PER_ACTION = 4
 
     image = None
+    twist_image = None
     death_image = None
     death_sound = None
     LEFT_FLY, RIGHT_FLY = 0, 1
 
     def __init__(self):
-        self.x, self.y = 305, 700
+        self.x, self.y = 0, 0
         self.frame = 0
         self.death_frame = 0
         self.total_frames = 0.0
@@ -34,6 +35,8 @@ class GreenEnemy:
 
         self.image = load_image('resource/enemy/green_enemy.png')
         self.death_image = load_image('resource/enemy/dead.png')
+        if self.twist_image == None:
+            self.twist_image = load_image('resource/enemy/green_enemy_twist.png')
         if GreenEnemy.death_sound == None:
             GreenEnemy.death_sound = load_music('wav_sounds/explosion.wav')
             GreenEnemy.death_sound.set_volume(32)
@@ -54,7 +57,9 @@ class GreenEnemy:
         self.death_sound.play()
 
     def draw(self):
-        if self.death == False:
+        if self.y >= 450:
+            self.twist_image.clip_draw(self.frame * 80, 0, 80, 80, self.x, self.y)
+        if self.death == False and self.y <= 450:
             self.image.clip_draw(self.frame * 80, 0, 80, 80, self.x, self.y)
         elif self.death == True:
             self.death_image.clip_draw(self.death_frame * 70, 0, 60, 70, self.x, self.y)
@@ -62,6 +67,9 @@ class GreenEnemy:
                 self.frame = -1
                 self.death = False
                 self.x, self.y = -100, -100
+
+    def locate(self):
+        return self.x, self.y
 
     def get_bb(self):
         return self.x - 30, self.y - 30, self.x + 30, self.y + 35

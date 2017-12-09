@@ -3,6 +3,7 @@ from pico2d import *
 import game_framework
 import title_state
 import pause_state
+import game_over_state
 
 
 from map import Map
@@ -14,12 +15,14 @@ from missile import FighterMissile, EnemyMissile
 from scorenumber import ScoreNumber
 from score import Score
 from fighterlife import FighterLife
+
 name = "MainState"
 
 map = None
 fighter = None
 fighter_missile = None
 enemy_missile = None
+EnemyMissiles = None
 green_enemy = None
 red_enemy = None
 blue_enemy = None
@@ -30,11 +33,13 @@ score_number = 0
 score = None
 score_data = None
 draw_score = None
-fighter_life = None
+fighter_life1 = None
+fighter_life2 = None
+life = 2
 
-#green_enemy_data_file = open('green_enemy.txt', 'r')
-#green_enemy_data = json.load(green_enemy_data_file)
-#green_enemy_data_file.close()
+green_enemy_data_file = open('green_enemy.txt', 'r')
+green_enemy_data = json.load(green_enemy_data_file)
+green_enemy_data_file.close()
 
 #red_enemy_data_file = open('red_enemy.txt', 'r')
 #red_enemy_data = json.load(red_enemy_data_file)
@@ -45,15 +50,15 @@ fighter_life = None
 #blue_enemy_data_file.close()
 
 
-#def create_green_enemy():
-#    green_enemies = []
-#    for name in green_enemy_data:
-#        green_enemy = GreenEnemy()
-#        green_enemy.name = name
-#        green_enemy.x = green_enemy_data[name]['x']
-#        green_enemy.y = green_enemy_data[name]['y']
-#        green_enemies.append(green_enemy)
-#   return green_enemies
+def create_green_enemy():
+    green_enemies = []
+    for name in green_enemy_data:
+        green_enemy = GreenEnemy()
+        green_enemy.name = name
+        green_enemy.x = green_enemy_data[name]['x']
+        green_enemy.y = green_enemy_data[name]['y']
+        green_enemies.append(green_enemy)
+    return green_enemies
 
 #def create_red_enemy():
 #    red_enemies = []
@@ -76,38 +81,41 @@ fighter_life = None
 #    return blue_enemies
 
 def create_world():
-    global map, fighter, fighter_missile, green_enemy, red_enemies, blue_enemies, enemy_missile
-    global draw_score, fighter_life, score
+    global map, fighter, fighter_missile, green_enemies, red_enemies, blue_enemies, enemy_missile
+    global draw_score, fighter_life1, fighter_life2, score, EnemyMissiles
     map = Map(800,600)
 
     draw_score = ScoreNumber()
     score = Score()
-    fighter_life = FighterLife()
-
     fighter = Fighter()
-    green_enemy = GreenEnemy()
-#    green_enemies = create_green_enemy()
+#    green_enemy = GreenEnemy()
+    green_enemies = create_green_enemy()
 #    red_enemies = create_red_enemy()
 #    blue_enemies = create_blue_enemy()
     fighter_missile = FighterMissile()
-    enemy_missile = EnemyMissile()
+    #enemy_missile = EnemyMissile()
+    EnemyMissiles = [EnemyMissile() for i in range(3)]
+    fighter_life1 = FighterLife(30, 30)
+    fighter_life2 = FighterLife(80, 30)
     pass
 
 
 def destroy_world():
-    global map, fighter, green_enemy, fighter_missile, red_enemies, blue_enemies, enemy_missile
-    global draw_score, fighter_life, score
+    global map, fighter, green_enemies, fighter_missile, red_enemies, blue_enemies, enemy_missile
+    global draw_score, fighter_life1, fighter_life2, score, EnemyMissiles
 
     del(map)
     del(fighter)
-    del(green_enemy)
+    del(green_enemies)
     del(red_enemies)
     del(blue_enemies)
     del(fighter_missile)
     del(enemy_missile)
     del(draw_score)
-    del(fighter_life)
+    del(fighter_life1)
+    del(fighter_life2)
     del(score)
+    del(EnemyMissiles)
 
 def enter():
     #open_canvas()
@@ -175,27 +183,29 @@ def collide(a, b):
     pass
 
 def update(frame_time):
-    global score_number, draw_score
+    global score_number, draw_score, life
     fighter.update(frame_time)
     map.update(frame_time)
     fighter_missile.update(frame_time, fighter.x, fighter.y)
-    enemy_missile.update(frame_time, green_enemy.x, green_enemy.y)
+#    enemy_missile.update(frame_time, green_enemies.x, green_enemies.y)
     draw_score.update(frame_time, score_number)
-    green_enemy.update(frame_time)
+    #green_enemies.update(frame_time)
+    for enemy_missile in EnemyMissiles:
+        enemy_missile.update(frame_time)
 
 
-    #for green_enemy in green_enemies:
-        #green_enemy.update(frame_time)
+    for green_enemy in green_enemies:
+        green_enemy.update(frame_time)
     #for red_enemy in red_enemies:
      #   red_enemy.update(frame_time)
     #for blue_enemy in blue_enemies:
      #   blue_enemy.update(frame_time)
 
-    #for green_enemy in green_enemies:
-    if collide(green_enemy, fighter_missile):
-        fighter_missile.stop()
-        green_enemy.die()
-        score_number = score_number + 800
+    for green_enemy in green_enemies:
+        if collide(green_enemy, fighter_missile):
+            fighter_missile.stop()
+            green_enemy.die()
+            score_number = score_number + 800
     #for red_enemy in red_enemies:
      #   if collide(red_enemy, p_missile):
       #      p_missile.stop()
@@ -206,9 +216,13 @@ def update(frame_time):
       #      p_missile.stop()
        #     blue_enemy.die()
         #    score = score + 300
-    if collide(fighter, enemy_missile):
-        enemy_missile.stop()
-        fighter.die()
+    for enemy_missile in EnemyMissiles:
+        if collide(fighter, enemy_missile):
+            enemy_missile.stop()
+            fighter.die()
+            life -= 1
+    if life < 0:
+        game_framework.push_state(game_over_state)
 
     pass
 
@@ -220,13 +234,21 @@ def draw(frame_time):
     map.draw()
     fighter.draw()
     fighter_missile.draw()
-    enemy_missile.draw()
+    #enemy_missile.draw()
+    for enemy_missile in EnemyMissiles:
+        enemy_missile.draw()
+        enemy_missile.draw_bb()
     draw_score.draw()
     score.draw()
-    fighter_life.draw()
-    #for green_enemy in green_enemies:
-    green_enemy.draw()
-    green_enemy.draw_bb()
+    fighter_life1.draw()
+    fighter_life2.draw()
+    if life == 1:
+        fighter_life2.x = -50
+    if life == 0:
+        fighter_life1.x = -50
+    for green_enemy in green_enemies:
+        green_enemy.draw()
+        green_enemy.draw_bb()
     #for red_enemy in red_enemies:
     #    red_enemy.draw()
     #    red_enemy.draw_bb()
@@ -234,7 +256,7 @@ def draw(frame_time):
     #    blue_enemy.draw()
     #    blue_enemy.draw_bb()
     fighter_missile.draw_bb()
-    enemy_missile.draw_bb()
+    #enemy_missile.draw_bb()
     fighter.draw_bb()
 
 
