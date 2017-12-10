@@ -1,10 +1,10 @@
 from pico2d import *
 import random
-
+import game_framework
 
 class GreenEnemy:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 15.0  # Km / Hour
+    RUN_SPEED_KMPH = 20.0  # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
     RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
     RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -62,6 +62,7 @@ class GreenEnemy:
         if self.death == False and self.y <= 450:
             self.image.clip_draw(self.frame * 80, 0, 80, 80, self.x, self.y)
         elif self.death == True:
+            game_framework.reset_time()
             self.death_image.clip_draw(self.death_frame * 70, 0, 60, 70, self.x, self.y)
             if self.death_frame == 3:
                 self.frame = -1

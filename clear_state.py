@@ -1,31 +1,32 @@
 import game_framework
 from pico2d import *
-import main_state
 
-name = 'PauseState'
+import main_state
+name = 'ClearState'
 image = None
-count = 0
+sound = None
 
 def enter():
-    global image
-    game_framework.reset_time()
-    image = load_image('resource/pause.png')
+    global image, sound
+    image = load_image('resource/clear.png')
+    sound = load_music('sounds/clear.mp3')
+    sound.set_volume(32)
+    sound.play()
 
 def exit():
     global image
     del(image)
 
 def update(frame_time):
-    global count
-    count = (count + 1) % 100
+
     pass
 
 def draw(frame_time):
     clear_canvas()
     main_state.draw(frame_time)
-    if count < 10:
-        image.draw(400,500)
+    image.draw(400,300)
     update_canvas()
+    delay(0.1)
     pass
 
 def handle_events(frame_time):
@@ -33,9 +34,8 @@ def handle_events(frame_time):
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
-            # p key go to main_state
-            game_framework.pop_state()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            game_framework.quit()
     pass
 
 def pause(): pass

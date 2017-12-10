@@ -1,4 +1,6 @@
 from pico2d import *
+from blue_enemy import BlueEnemy
+
 
 class FighterMissile:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -42,7 +44,6 @@ class FighterMissile:
             if self.missile_ready == False:
                 self.missile_ready= True
                 self.launch = True
-
         pass
 
     def stop(self):
@@ -58,7 +59,7 @@ class FighterMissile:
 
 class EnemyMissile:
     PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 30.0  # Km / Hour
+    RUN_SPEED_KMPH = 35.0  # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
     RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
     RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -66,7 +67,7 @@ class EnemyMissile:
     image = None
 
     def __init__(self):
-        self.x, self.y = 100, 500
+        self.x, self.y = 0, 0
         self.dir = -1
         self.missile_ready = False
         self.launch = False
@@ -75,26 +76,19 @@ class EnemyMissile:
             EnemyMissile.image = load_image('resource/enemy/enemy_missile.png')
 
 
-    def update(self, frame_time, enemy_x, enemy_y):
-        self.launch_time += frame_time * 10
-
-        if self. missile_ready == True:
-            if self.launch == True:
-                self.x = enemy_x
-                self.y = enemy_y - 30
-                self.launch = False
-            if self.y <= 0:
-                self.missile_ready = False
-        if self.launch_time >= 20:
-            if self.missile_ready == False:
-                self.missile_ready = True
-                self.launch = True
-
+    def update(self, frame_time):
+        self.launch_time = (self.launch_time + frame_time * 10)
+        print(self.launch_time)
+        if self.launch_time >= 30:
             distance = self.RUN_SPEED_PPS * self.dir * frame_time
             self.y += distance
+            if self.y <= -30:
+                self.y = -30
+
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        if self.y <= 395:
+            self.image.draw(self.x, self.y)
 
     def handle_event(self, event):
         pass

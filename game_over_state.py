@@ -1,30 +1,31 @@
 import game_framework
-import title_state
 from pico2d import *
-
 import main_state
+
 name = 'GameOverState'
 image = None
-count = 0
+sound = None
+
 def enter():
-    global image
+    global image, sound
     image = load_image('resource/gameover.png')
+    sound = load_music('sounds/gameover.mp3')
+    sound.set_volume(32)
+    sound.play()
 
 def exit():
     global image
     del(image)
 
 def update(frame_time):
-    global count
-    count = (count + 1) % 200
     pass
 
 def draw(frame_time):
     clear_canvas()
     main_state.draw(frame_time)
-    if count < 50:
-        image.draw(400,300)
+    image.draw(400,300)
     update_canvas()
+    delay(0.1)
     pass
 
 def handle_events(frame_time):
